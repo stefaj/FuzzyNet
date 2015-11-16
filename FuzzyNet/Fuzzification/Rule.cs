@@ -21,7 +21,7 @@ namespace FuzzyNet.Fuzzification
 
         public Clause OutputClause { get; set; }
 
-        public void BuildInputVariables()
+        public void BuildInputVariables() 
         {
             AddInputVariableFromNode(InputClause);
         }
@@ -29,6 +29,11 @@ namespace FuzzyNet.Fuzzification
 
         private void AddInputVariableFromNode(Node node)
         {
+            if(node as Clause != null)
+            {
+                var c = (node as Clause);
+                inputVariables[c.Variable] = c;
+            }
             if (node.LeftOperand as Clause != null)
             {
                 var c = (node.LeftOperand as Clause);
@@ -41,8 +46,10 @@ namespace FuzzyNet.Fuzzification
             }
             else
             {
-                AddInputVariableFromNode(node.LeftOperand);
-                AddInputVariableFromNode(node.RightOperand);
+                if(node.LeftOperand != null)
+                    AddInputVariableFromNode(node.LeftOperand);
+                if(node.RightOperand != null)
+                    AddInputVariableFromNode(node.RightOperand);
             }
         }
 

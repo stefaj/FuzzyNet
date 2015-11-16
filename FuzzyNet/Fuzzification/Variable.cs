@@ -18,7 +18,7 @@ namespace FuzzyNet.Fuzzification
         
         public Variable(string name)
         {
-            this.Name = name;
+            this.Name = name.ToUpper();
         }
 
         public override string ToString()
@@ -33,7 +33,7 @@ namespace FuzzyNet.Fuzzification
 
         public override bool Equals(object obj)
         {
-            return Name.Equals(obj);
+            return Name == obj.ToString();
         }
 
 

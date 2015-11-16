@@ -12,7 +12,7 @@ namespace FuzzyNet.Fuzzification
 
         public Condition(string name, IMembership membership)
         {
-            this.Name = name;
+            this.Name = name.ToUpper();
             this.Membership = membership;
         }
 

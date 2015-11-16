@@ -44,9 +44,20 @@ namespace FuzzyNet.Fuzzification
 
         }
 
-        private Condition GetConditionFromFis(Variable vari, string conditionName)
+        private Condition GetInputConditionFromFis(Variable vari, string conditionName)
         {
             foreach(var v in fis.InputVariables[vari])
+            {
+                if (v.Name == conditionName)
+                    return v;
+            }
+            throw new Exception("Condition " + conditionName + " not found in FIS");
+        }
+
+
+        private Condition GetOutputConditionFromFis(Variable vari, string conditionName)
+        {
+            foreach (var v in fis.OutputVariables[vari])
             {
                 if (v.Name == conditionName)
                     return v;
@@ -71,7 +82,7 @@ namespace FuzzyNet.Fuzzification
                 Variable inputVar = new Variable(left);
                 // Condition cond = new Condition(right);
 
-                Condition cond = GetConditionFromFis(inputVar, right);
+                Condition cond = GetInputConditionFromFis(inputVar, right);
    
 
                 return new Clause(inputVar, cond);
@@ -85,7 +96,7 @@ namespace FuzzyNet.Fuzzification
             string function = expression.Substring(0, expression.IndexOf(' '));
             IFunction func = null;
             switch (function.ToLower().Trim())
-            {
+            { 
                 case "and":
                     func = new AndFunction();
                     break;
@@ -115,9 +126,10 @@ namespace FuzzyNet.Fuzzification
         public Rule ParseLexicalStatement(string expression)
         {
             //IF blah THEN blah
+            expression = expression.ToUpper();
             expression = expression.Substring(3);
             int indexOfThen = expression.IndexOf("THEN") + 4;
-            string inputSynt = expression.Substring(0, indexOfThen).TrimEnd();
+            string inputSynt = expression.Substring(0, indexOfThen-4).TrimEnd();
 
             Node inputNode = new Node();
             inputNode = ParseInputSyntax(inputNode, inputSynt);
@@ -126,14 +138,14 @@ namespace FuzzyNet.Fuzzification
 
 
             // output
-            int isIndex = expression.IndexOf("is");
+            int isIndex = expression.IndexOf("IS");
 
-            string left = expression.Substring(0, isIndex - 1);
-            string right = expression.Substring(isIndex + 3);
+            string left = expression.Substring(0, isIndex - 1).Trim();
+            string right = expression.Substring(isIndex + 3).Trim();
 
             Variable outputVar = new Variable(left);
 
-            Condition cond = GetConditionFromFis(outputVar, right);
+            Condition cond = GetOutputConditionFromFis(outputVar, right);
 
 
             Rule r = new Rule();

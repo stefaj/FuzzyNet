@@ -38,6 +38,7 @@ namespace FuzzyNet
 
         public Variable GetOutputVariable(string name)
         {
+            name = name.ToUpper();
             foreach(var v in OutputVariables.Keys)
             {
                 if (v.Name == name)
@@ -55,6 +56,7 @@ namespace FuzzyNet
 
         public void AddRule(Rule r)
         {
+            r.BuildInputVariables();
             this.rules.Add(r);
         }
 
@@ -72,24 +74,26 @@ namespace FuzzyNet
 
         public void AddInputVariableMembership(string variable, string conditionName, IMembership membership)
         {
-            InputVariables[variable].Add(new Condition(conditionName, membership));
+            InputVariables[variable.ToUpper()].Add(new Condition(conditionName, membership));
         }
 
         public void AddInputVariableMembership(Variable v, IEnumerable<Condition> conditions)
         {
+            InputVariables[v] = new List<Condition>();
             foreach (var c in conditions)
                 InputVariables[v].Add(c);
         }
 
         public void AddOutputVariableMembership(Variable v, IEnumerable<Condition> conditions)
         {
+            OutputVariables[v] = new List<Condition>();
             foreach (var c in conditions)
                 OutputVariables[v].Add(c);
         }
 
         public void AddOutputVariableMembership(string variable, string conditionName, IMembership membership)
         {
-            OutputVariables[variable].Add(new Condition(conditionName, membership));
+            OutputVariables[variable.ToUpper()].Add(new Condition(conditionName, membership));
         }
 
         public void Run()
