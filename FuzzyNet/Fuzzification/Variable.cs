@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace FuzzyNet.Fuzzification
 {
-    public class Variable
+    public class Variable : Node
     {
         public string Name { get; set; }
 
+
+        /// <summary>
+        /// For temporary computations
+        /// </summary>
         public float Value { get; set; }
+        
+        public Variable(string name)
+        {
+            this.Name = name;
+        }
 
         public override string ToString()
         {
@@ -25,6 +34,17 @@ namespace FuzzyNet.Fuzzification
         public override bool Equals(object obj)
         {
             return Name.Equals(obj);
+        }
+
+
+     /*   public static explicit operator Variable(string s)
+        {
+            return new Variable(s);
+        }
+        */
+        public static implicit operator Variable(string s)
+        {
+            return new Variable(s);
         }
 
     }

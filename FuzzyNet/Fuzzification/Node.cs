@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FuzzyNet
 {
-    public  class Node
+    public class Node
     {
 
         public Node()
@@ -35,9 +35,9 @@ namespace FuzzyNet
             return string.Format("({0} {1} {2})", LeftOperand.ToString(), Function.ToString(), RightOperand.ToString());
         }
 
-        public float Evaluate()
+        public virtual float Evaluate()
         {
-            return 0;
+            return Function.Evaluate(this.LeftOperand.Evaluate(), this.RightOperand.Evaluate());
         }
     }
 }

@@ -26,5 +26,15 @@ namespace FuzzyNet.Accumulation
             return max;
         }
 
+
+        public float Accumulate(Fuzzification.Rule rule1, Fuzzification.Rule rule2)
+        {
+            var r1 = rule1.EvaluateDegree();
+            var r2 = rule2.EvaluateDegree();
+            if (r1 > r2)
+                return r1;
+            else
+                return r2;
+        }
     }
 }

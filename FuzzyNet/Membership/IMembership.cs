@@ -14,5 +14,9 @@ namespace FuzzyNet.Membership
         /// <param name="pos"></param>
         /// <returns></returns>
         float MembershipDegree(float pos);
+
+        float Center { get; }
+
+        float Area { get; }
     }
 }

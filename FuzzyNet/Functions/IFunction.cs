@@ -8,6 +8,6 @@ namespace FuzzyNet
 {
     public interface IFunction
     {
-        public float Evaluate(float v1, float v2);
+        float Evaluate(float v1, float v2);
     }
 }

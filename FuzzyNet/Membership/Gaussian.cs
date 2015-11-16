@@ -20,5 +20,16 @@ namespace FuzzyNet.Membership
         {
             return (float)Math.Exp((-(x - c) * (x - c)) / (2 * sig * sig));
         }
+
+
+        public float Center
+        {
+            get { return c; }
+        }
+
+        public float Area
+        {
+            get { return sig * (float)Math.Sqrt(2 * Math.PI); }
+        }
     }
 }

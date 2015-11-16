@@ -9,17 +9,21 @@ namespace FuzzyNet.Fuzzification
     public class OutputVariable
     {
         public string Name { get; set; }
-        public Condition Condition { get; set; }
-        public float Degree { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
 
         public override int GetHashCode()
         {
-            return (Name + Condition.Name).GetHashCode();
+            return Name.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            return obj.ToString() == (Name + Condition.Name);
+            return Name.Equals(obj);
         }
+
     }
 }

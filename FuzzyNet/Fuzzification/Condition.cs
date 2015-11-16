@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuzzyNet.Membership;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,16 @@ namespace FuzzyNet.Fuzzification
 {
     public class Condition
     {
+
+        public Condition(string name, IMembership membership)
+        {
+            this.Name = name;
+            this.Membership = membership;
+        }
+
         public string Name { get; set; }
+
+        public IMembership Membership {get; set;}
 
         public override string ToString()
         {
@@ -25,14 +35,5 @@ namespace FuzzyNet.Fuzzification
             return Name.Equals(obj);
         }
 
-        public static explicit operator Condition(string s)
-        {
-            return new Condition() { Name = s };
-        }
-
-        public static implicit operator Condition(string s)
-        {
-            return new Condition() { Name = s };
-        }
     }
 }

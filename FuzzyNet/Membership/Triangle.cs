@@ -32,5 +32,19 @@ namespace FuzzyNet.Membership
             else
                 return 0;
         }
+
+
+        public float Center
+        {
+            get { return b; }
+        }
+
+        public float Area
+        {
+            get 
+            {
+                return 1.0f / 2.0f * (c - a) * 1;
+            }
+        }
     }
 }

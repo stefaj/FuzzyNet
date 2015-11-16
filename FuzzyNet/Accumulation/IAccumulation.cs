@@ -9,6 +9,6 @@ namespace FuzzyNet.Accumulation
 {
     interface IAccumulation
     {
-        public float Accumulate(Rule rule1, Rule rule2);
+        float Accumulate(Rule rule1, Rule rule2);
     }
 }

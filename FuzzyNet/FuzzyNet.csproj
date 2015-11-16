@@ -43,8 +43,11 @@
   <ItemGroup>
     <Compile Include="Accumulation\IAccumulation.cs" />
     <Compile Include="Accumulation\Maximum.cs" />
+    <Compile Include="Defuzzification\IDefuzzifier.cs" />
+    <Compile Include="Defuzzification\WeightedAverage.cs" />
     <Compile Include="Fuzzification\Condition.cs" />
     <Compile Include="Fuzzification\Fuzzifier.cs" />
+    <Compile Include="Fuzzification\FuzzyOutput.cs" />
     <Compile Include="Fuzzification\OutputVariable.cs" />
     <Compile Include="Fuzzification\Parser.cs" />
     <Compile Include="Fuzzification\Variable.cs" />
@@ -54,6 +57,7 @@
     <Compile Include="Functions\AndFunction.cs" />
     <Compile Include="Functions\IFunction.cs" />
     <Compile Include="Fuzzification\Rule.cs" />
+    <Compile Include="System\FuzzyInferenceSystem.cs" />
     <Compile Include="Membership\IMembership.cs" />
     <Compile Include="Membership\Gaussian.cs" />
     <Compile Include="Membership\Triangle.cs" />

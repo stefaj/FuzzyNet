@@ -9,41 +9,42 @@ namespace FuzzyNet.Fuzzification
     public class Fuzzifier
     {
 
-        public OutputVariable[] Fuzzify(params Rule[] rules)
+        public Fuzzifier()
         {
-            
+        }
+
+        public FuzzyVariables Fuzzify(FuzzyInputValues values, IEnumerable<Rule> rules)
+        {            
             FuzzyNet.Accumulation.Maximum max = new Accumulation.Maximum();
 
             // i hope this stores unique output variable names
-            HashSet<OutputVariable> outputSet = new HashSet<OutputVariable>();
+
+            FuzzyVariables outputMemberships = new FuzzyVariables();
 
             foreach(var rule in rules)
             {
-                float mem = rule.InputRootNode.Evaluate();
-                rule.OutputVariable.Degree = mem;
+                foreach (var k in values.Keys)
+               {
+                   rule.SetValue(k, values[k]);
+                   k.Value = values[k];
+                   
+               }
 
-                if (outputSet.Contains(rule.OutputVariable))
-                {
-                    foreach (OutputVariable v in outputSet)
-                    {
-                        if (v.Equals(rule.OutputVariable))
-                        {
-                            if (v.Degree > rule.OutputVariable.Degree)
-                            {
-                                outputSet.Remove(v);
-                                outputSet.Add(rule.OutputVariable);
-                                break;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    outputSet.Add(rule.OutputVariable);
-                }
+               if (!outputMemberships.ContainsKey(rule.OutputClause.Variable))
+               {
+                   outputMemberships[rule.OutputClause.Variable] = new FuzzyVariableOutputs();
+               }
+
+               var condition = rule.OutputClause.Condition;
+               float degree = rule.EvaluateDegree();
+
+               outputMemberships[rule.OutputClause.Variable].Add(new ConditionDegree(condition,degree));
+                
             }
 
-            return outputSet.ToArray();`
+            return outputMemberships;
         }
+
+
     }
 }
