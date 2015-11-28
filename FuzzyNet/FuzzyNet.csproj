@@ -47,7 +47,7 @@
     <Compile Include="Defuzzification\WeightedAverage.cs" />
     <Compile Include="Fuzzification\Condition.cs" />
     <Compile Include="Fuzzification\Fuzzifier.cs" />
-    <Compile Include="Fuzzification\FuzzyOutput.cs" />
+    <Compile Include="Fuzzification\FuzzyIOs.cs" />
     <Compile Include="Fuzzification\OutputVariable.cs" />
     <Compile Include="Fuzzification\Parser.cs" />
     <Compile Include="Fuzzification\Variable.cs" />

@@ -68,24 +68,46 @@ namespace FuzzyNet.Fuzzification
         public Node ParseInputSyntax(Node rootNode, string expression)
         {
             expression = expression.ToUpper();
+
+            var freqs = expression
+                    .Where(c => Char.IsLetter(c))
+                    .GroupBy(c => c)
+                    .ToDictionary(g => g.Key, g => g.Count());
+            
+
             int firstSBrac = expression.IndexOf('(');
             int firstEBrac = ScanMatchingBrace(expression, firstSBrac);
+
+            if (firstEBrac - firstSBrac == expression.Length)
+                 return ParseInputSyntax(rootNode, expression.Substring(firstSBrac+1, firstEBrac - firstSBrac-2));
+
 
             // base case, raw expression
             if (firstEBrac == -1 || firstSBrac == -1)
             {
                 int isIndex = expression.IndexOf("IS");
+                int notIndex = expression.IndexOf("NOT");
 
                 string left = expression.Substring(0, isIndex - 1);
-                string right = expression.Substring(isIndex + 3);
+                
+                
+                string right = expression.Substring(isIndex + 3 + (notIndex > 0 ? 4 : 0));
+                
 
                 Variable inputVar = new Variable(left);
                 // Condition cond = new Condition(right);
 
                 Condition cond = GetInputConditionFromFis(inputVar, right);
-   
 
-                return new Clause(inputVar, cond);
+                // IF there is a not
+                var clause = new Clause(inputVar, cond);
+                if(notIndex > 0)
+                {
+                    Node node = new Node(new NotFunction(), clause, null);
+                    return node;
+                }
+
+                return clause;
             }
 
             string leftParse = expression.Substring(firstSBrac + 1, firstEBrac - 2);

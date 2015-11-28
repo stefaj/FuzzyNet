@@ -35,12 +35,15 @@ namespace FuzzyNet
             Variable outputMotion = new Variable("motion");
             fis.AddOutputVariableMembership(outputMotion, new Condition[]{down,up});
 
-            fis.AddRule("IF heat is medium then motion is down");
-            fis.AddRule("IF heat is cold then motion is up");
+            fis.AddRule("IF (heat is not hot) then motion is down");
+            fis.AddRule("IF (heat is hot) then motion is up");
+            //fis.AddRule("IF (heat is cold) then motion is up");
 
             
             //Test
-            fis.SetInputVariable(inputHeat, 0.2f);
+            fis.SetInputVariable(inputHeat, 
+                
+                .0f);
             fis.Run();
             float val = fis.GetOutputVariableValue("motion");
 

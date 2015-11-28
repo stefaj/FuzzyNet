@@ -37,7 +37,9 @@ namespace FuzzyNet
 
         public virtual float Evaluate()
         {
-            return Function.Evaluate(this.LeftOperand.Evaluate(), this.RightOperand.Evaluate());
+
+
+            return Function.Evaluate(this.LeftOperand.Evaluate(), this.RightOperand==null ? 0 : this.RightOperand.Evaluate());
         }
     }
 }
