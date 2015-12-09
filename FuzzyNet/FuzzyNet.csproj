@@ -57,6 +57,9 @@
     <Compile Include="Functions\AndFunction.cs" />
     <Compile Include="Functions\IFunction.cs" />
     <Compile Include="Fuzzification\Rule.cs" />
+    <Compile Include="Membership\Singleton.cs" />
+    <Compile Include="Membership\DownSlope.cs" />
+    <Compile Include="Membership\UpSlope.cs" />
     <Compile Include="System\FuzzyInferenceSystem.cs" />
     <Compile Include="Membership\IMembership.cs" />
     <Compile Include="Membership\Gaussian.cs" />
